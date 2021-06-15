@@ -1,4 +1,4 @@
-# Frontend code test
+# React Native code test
 
 As part of a new feature for a React Mobile application, write a JavaScript function, `fromBookings`, that receives an array of bookings and achieves the following acceptance criteria.
 
@@ -13,6 +13,8 @@ NOTES:
 
 - You will be scheduled for an hour and a half with an interviewer to discuss and solve this problem.
 - A booking will not exceed 24 hours in duration.
+- Assume that bookings extend the entire length of the day and that there cannot be more than one booking per day.
+- The `fromBookings` function should be able to pass tests defined in `fromBookings.test.js`.
 - As part of your solution please create a local git repo and provide it to your interviewer at the end as a zip file.
 - Please use the editor of your choice.
 - Feel free to spruce up the UI.
@@ -52,65 +54,250 @@ PO > Yes, please. Add a gap entry at the end of the list.
 DEV > Will do. Thanks.
 
 ## Examples:
-
-1.
-
-```
-const result = fromBookings([
-  { id: 1, title: "Booking 1", start: new Date("2018-02-28T08:00:00"), end: new Date("2018-02-28T09:00:00") },
-  { id: 2, title: "Booking 2", start: new Date("2018-03-02T10:00:00"), end: new Date("2018-03-02T11:00:00") }]);
-
-console.log(result);
-```
-
-Output
+The following examples can also be referenced and tested against in the unit test file `fromBookings.test.js`
+### Case 1
+#### Input
 
 ```
-[{ id: 1, title: "Booking 1", start: new Date("2018-02-28T08:00:00"), end: new Date("2018-02-28T09:00:00") },
- { title: "No bookings", start: new Date("2018-03-01T00:00:00"), end: new Date("2018-03-01T23:59:59.999") },
- { id: 2, title: "Booking 2", start: new Date("2018-03-02T10:00:00"), end: new Date("2018-03-02T11:00:00") },
- { title: "No bookings", start: new Date("2018-03-03T00:00:00"), end: null }]
+[
+  {
+    id: 1,
+    title: "Booking 1",
+    start: new Date("2018-02-28T08:00:00"),
+    end: new Date("2018-02-28T09:00:00"),
+  },
+  {
+    id: 2,
+    title: "Booking 2",
+    start: new Date("2018-03-02T10:00:00"),
+    end: new Date("2018-03-02T11:00:00"),
+  },
+]
 ```
-
-2)
-
-```
-const result = fromBookings([
-  { id: 2, title: "Booking 2", start: new Date("2018-03-02T10:00:00"), end: new Date("2018-03-02T11:00:00") },
-  { id: 1, title: "Booking 1", start: new Date("2018-02-28T08:00:00"), end: new Date("2018-03-01T07:00:00") },
-  { id: 2, title: "Booking 2", start: new Date("2018-03-02T10:00:00"), end: new Date("2018-03-02T11:00:00") }]);
-
-console.log(result);
-```
-
-Output
+#### Output
 
 ```
-[{ id: 1, title: "Booking 1", start: new Date("2018-02-28T08:00:00"), end: new Date("2018-03-01T07:00:00") },
- { title: "No bookings", start: new Date("2018-03-01T00:00:00"), end: new Date("2018-03-01T23:59:59.999") },
- { id: 2, title: "Booking 2", start: new Date("2018-03-02T10:00:00"), end: new Date("2018-03-02T11:00:00") },
- { title: "No bookings", start: new Date("2018-03-03T00:00:00"), end: null }]
+[
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-02-28T00:00:00.000'),
+    end: new Date('2018-02-28T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-01T00:00:00.000'),
+    end: new Date('2018-03-01T23:59:59.999'),
+  },
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-03-02T00:00:00.000'),
+    end: new Date('2018-03-02T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-03T00:00:00.000'),
+    end: null,
+  }
+]
 ```
 
-3)
+### Case 2
+#### Input
+```
+[
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-03-02T00:00:00.000'),
+    end: new Date('2018-03-02T23:59:59.999'),
+  },
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-02-28T00:00:00.000'),
+    end: new Date('2018-03-01T23:59:59.999'),
+  },
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-03-03T00:00:00.000'),
+    end: new Date('2018-03-03T23:59:59.999'),
+  }
+]
+```
+#### Output
 
 ```
-const result = fromBookings([
-  { id: 3, title: "Booking 3", start: new Date("2019-01-11T12:00:00"), end: new Date("2019-01-11T13:00:00") },
-  { id: 1, title: "Booking 1", start: new Date("2018-12-05T13:00:00"), end: new Date("2018-12-05T15:00:00") },
-  { id: 2, title: "Booking 2", start: new Date("2018-12-31T23:00:00"), end: new Date("2019-01-01T02:00:00") },
-  { id: 3, title: "Booking 3", start: new Date("2019-01-11T12:00:00"), end: new Date("2019-01-11T13:00:00") }]);
-
-console.log(result);
+[
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-02-28T00:00:00.000'),
+    end: new Date('2018-03-01T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-02T00:00:00.000'),
+    end: new Date('2018-03-02T23:59:59.999'),
+  },
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-03-03T00:00:00.000'),
+    end: new Date('2018-03-03T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-04T00:00:00.000'),
+    end: null,
+  }
+]
 ```
 
-Output
+### Case 3
+#### Input
+```
+[
+  {
+    id: 3,
+    title: 'Booking 3',
+    start: new Date('2019-01-11T00:00:00'),
+    end: new Date('2019-01-11T00:00:00'),
+  },
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-12-05T00:00:00.000'),
+    end: new Date('2018-12-05T23:59:59.999'),
+  },
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-12-31T00:00:00.000'),
+    end: new Date('2019-01-01T23:59:59.999'),
+  },
+  {
+    id: 3,
+    title: 'Booking 3',
+    start: new Date('2019-01-11T00:00:00.000'),
+    end: new Date('2019-01-11T23:59:59.999'),
+  }
+]
+```
+#### Output
 
 ```
-[{ id: 1, title: "Booking 1", start: new Date("2018-12-05T13:00:00"), end: new Date("2018-12-05T15:00:00") },
- { title: "No bookings", start: new Date("2018-12-06T00:00:00"), end: new Date("2018-12-30T23:59:59.999") },
- { id: 2, title: "Booking 2", start: new Date("2018-12-31T23:00:00"), end: new Date("2019-01-01T02:00:00") },
- { title: "No bookings", start: new Date("2019-01-01T00:00:00"), end: new Date("2019-01-10T23:59:59.999") },
- { id: 3, title: "Booking 3", start: new Date("2019-01-11T12:00:00"), end: new Date("2019-01-11T13:00:00") },
- { title: "No bookings", start: new Date("2019-01-12T00:00:00.000"), end: null } ]
+[
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-12-05T00:00:00.000'),
+    end: new Date('2018-12-05T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-12-06T00:00:00.000'),
+    end: new Date('2018-12-30T23:59:59.999'),
+  },
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-12-31T00:00:00.000'),
+    end: new Date('2019-01-01T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2019-01-02T00:00:00.000'),
+    end: new Date('2019-01-10T23:59:59.999'),
+  },
+  {
+    id: 3,
+    title: 'Booking 3',
+    start: new Date('2019-01-11T00:00:00.000'),
+    end: new Date('2019-01-11T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2019-01-12T00:00:00.000'),
+    end: null,
+  }
+]
+```
+
+### Pagination (Extra)
+
+#### Constants
+The following outputs assume that a size of `2` is passed to `fromBookings`.
+
+#### Input
+```
+[
+  {
+    id: 1,
+    title: "Booking 1",
+    start: new Date("2018-02-28T00:00:00.000"),
+    end: new Date("2018-02-28T23:59:59.999"),
+  },
+  {
+    id: 2,
+    title: "Booking 2",
+    start: new Date("2018-03-02T00:00:00.000"),
+    end: new Date("2018-03-02T23:59:59.999"),
+  },
+  {
+    id: 3,
+    title: "Booking 3",
+    start: new Date("2018-03-03T00:00:00.000"),
+    end: new Date("2018-03-03T23:59:59.999"),
+  }
+]
+```
+### Output Page 1
+```
+[
+  {
+    id: 1,
+    title: 'Booking 1',
+    start: new Date('2018-02-28T00:00:00.000'),
+    end: new Date('2018-02-28T23:59:59.999'),
+  },
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-01T00:00:00.000'),
+    end: new Date('2018-03-01T23:59:59.999'),
+  }
+]
+```
+### Output Page 2
+```
+[
+  {
+    id: 2,
+    title: 'Booking 2',
+    start: new Date('2018-03-02T00:00:00.000'),
+    end: new Date('2018-03-02T23:59:59.999'),
+  },
+  {
+    id: 3,
+    title: 'Booking 3',
+    start: new Date('2018-03-03T00:00:00.000'),
+    end: new Date('2018-03-03T23:59:59.999'),
+  }
+]
+```
+### Output Page 3
+```
+[
+  {
+    title: 'No bookings',
+    start: new Date('2018-03-04T00:00:00.000'),
+    end: null,
+  }
+]
+```
+### Output Page 4
+```
+[]
 ```
