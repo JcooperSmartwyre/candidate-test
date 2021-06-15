@@ -4,7 +4,7 @@ As part of a new feature for a React Mobile application, write a JavaScript func
 
 - Demonstrate that the bookings in the results array are unique, determined by booking id.
 - Demonstrate that the bookings in the results array are sorted by booking start time, ascending.
-- Demonstrate that gap entries appear for days with zero bookings (see examples below for gap output).
+- Demonstrate that gap entries appear for days with zero bookings (see scenarios below for gap output).
 - Demonstrate that gap entries appear in the correct order in the results array, relative to the start times of existing bookings.
 - Demonstrate that a gap entry appears as the last item in the results array with a null end date, indicating there are no bookings after the last.
 - Demonstrate either a map can be opened for a booking or the booking data can be stored locally in the app.
@@ -14,6 +14,7 @@ NOTES:
 - You will be scheduled for an hour and a half with an interviewer to discuss and solve this problem.
 - A booking will not exceed 24 hours in duration.
 - Assume that bookings extend the entire length of the day and that there cannot be more than one booking per day.
+- Test different scenarios by putting the input data into the `data.js` file.
 - The `fromBookings` function should be able to pass tests defined in `fromBookings.test.js`.
 - As part of your solution please create a local git repo and provide it to your interviewer at the end as a zip file.
 - Please use the editor of your choice.
@@ -53,8 +54,8 @@ PO > Yes, please. Add a gap entry at the end of the list.
 
 DEV > Will do. Thanks.
 
-## Examples:
-The following examples can also be referenced and tested against in the unit test file `fromBookings.test.js`
+## Scenarios:
+The following scenarios can also be referenced and tested against in the unit test file `fromBookings.test.js`
 ### Case 1
 #### Input
 

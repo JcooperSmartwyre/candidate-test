@@ -1,8 +1,6 @@
-import data from "./data";
-
 function fromBookings(bookings, page, size) {
-  return new Promise(function(resolve, reject) {
-    resolve(data);
+  return new Promise(function (resolve, reject) {
+    resolve(bookings);
   });
 }
 

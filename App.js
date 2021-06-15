@@ -6,12 +6,10 @@
  * @flow strict-local
  */
 
-import React, { useState, useEffect } from 'react';
-import type {Node} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   FlatList,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -19,16 +17,12 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import data from './data';
 
-import fromBookings from "./fromBookings";
+import fromBookings from './fromBookings';
 
-const Section = ({children, title}): Node => {
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -54,12 +48,12 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     async function getBookings() {
-      setBookings(await fromBookings([]));
+      setBookings(await fromBookings(data));
     }
     getBookings();
   }, []);
@@ -68,7 +62,6 @@ const App: () => Node = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -81,8 +74,8 @@ const App: () => Node = () => {
           data={bookings}
           renderItem={({item}) => (
             <Section title={item.title}>
-              From {item.start ? item.start.toLocaleString() : null }
-              {item.end ? `\nTo ${item.end.toLocaleString()}` : null }
+              From {item.start ? item.start.toLocaleString() : null}
+              {item.end ? `\nTo ${item.end.toLocaleString()}` : null}
             </Section>
           )}
         />
