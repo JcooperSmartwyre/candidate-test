@@ -7,7 +7,6 @@ As part of a new feature for a React Mobile application, write a JavaScript func
 - Demonstrate that gap entries appear for days with zero bookings (see scenarios below for gap output).
 - Demonstrate that gap entries appear in the correct order in the results array, relative to the start times of existing bookings.
 - Demonstrate that a gap entry appears as the last item in the results array with a null end date, indicating there are no bookings after the last.
-- Demonstrate either a map can be opened for a booking or the booking data can be stored locally in the app.
 
 NOTES:
 
